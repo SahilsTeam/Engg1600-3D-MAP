@@ -1,0 +1,5 @@
+* @ORG/maintainers
+/frontend/ @ORG/frontend-owners
+/backend/ @ORG/backend-owners
+/tools/ @ORG/backend-owners
+/docs/ @ORG/docs-owners

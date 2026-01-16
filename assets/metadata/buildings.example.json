@@ -1,0 +1,13 @@
+{
+  "version": "v01",
+  "buildings": [
+    {
+      "id": "library",
+      "name": "Campus Library",
+      "footprint": "placeholder",
+      "metadata": {
+        "floors": 3
+      }
+    }
+  ]
+}

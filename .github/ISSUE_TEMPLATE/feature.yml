@@ -1,0 +1,44 @@
+name: Feature
+description: Propose a new feature for the campus viewer.
+title: "feat: "
+labels: ["type:feature"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What should be built?
+      placeholder: Describe the user value and scope.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: List the conditions for completion.
+      placeholder: "- [ ] ..."
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - area:viewer
+        - area:assets
+        - area:backend
+        - area:tools
+        - area:ci
+        - area:docs
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - prio:p0
+        - prio:p1
+        - prio:p2
+    validations:
+      required: true
