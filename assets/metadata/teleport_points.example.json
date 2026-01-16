@@ -1,0 +1,10 @@
+{
+  "version": "v01",
+  "points": [
+    {
+      "id": "main-gate",
+      "label": "Main Gate",
+      "position": { "x": 0, "y": 0, "z": 0 }
+    }
+  ]
+}
