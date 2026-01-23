@@ -1,36 +1,114 @@
-:root {
+﻿:root {
   color-scheme: light dark;
-  font-family: "Segoe UI", system-ui, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 body {
-  margin: 0;
-  background: #0b0f1a;
+  background: #05070f;
+  color: #f8fafc;
 }
 
-#app {
-  height: 100vh;
-  width: 100vw;
+.app-root {
   position: relative;
+  width: 100vw;
+  height: 100vh;
   overflow: hidden;
 }
 
-#renderCanvas {
+/* R3F canvas element */
+.app-root canvas {
+  display: block;
   width: 100%;
   height: 100%;
-  display: block;
 }
 
-.overlay {
+/* Overlay should not block canvas except the panel */
+.overlay-root {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  padding: 8px 12px;
-  background: rgba(11, 15, 26, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  color: #ffffff;
-  font-size: 14px;
-  letter-spacing: 0.3px;
-  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.overlay-panel {
+  pointer-events: auto;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 260px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(7, 10, 18, 0.82);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 20px 40px rgba(2, 6, 23, 0.6);
+  backdrop-filter: blur(8px);
+}
+
+.overlay-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #cbd5f5;
+  margin-bottom: 12px;
+}
+
+.overlay-section {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.overlay-label {
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.overlay-value {
+  color: #f8fafc;
+  font-weight: 500;
+}
+
+.overlay-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.overlay-button {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: #2563eb;
+  color: #f8fafc;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.overlay-button.secondary {
+  background: rgba(148, 163, 184, 0.15);
+  border-color: rgba(148, 163, 184, 0.4);
+}
+
+.overlay-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.overlay-warning {
+  margin-top: 12px;
+  font-size: 12px;
+  color: #fbbf24;
 }
