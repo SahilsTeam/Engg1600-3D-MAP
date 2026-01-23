@@ -1,4 +1,4 @@
-# Frontend
+﻿# Frontend
 
 ## Requirements
 - Node.js 20+
@@ -14,4 +14,4 @@ npm run dev
 npm run build
 ```
 
-The viewer uses an ArcRotateCamera for orbit controls.
+
