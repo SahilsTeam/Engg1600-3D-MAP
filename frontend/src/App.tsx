@@ -4,44 +4,86 @@ import { OrbitControls } from "@react-three/drei";
 function Scene() {
   return (
     <>
-      <ambientLight intensity={0.6} />
-      <directionalLight position={[5, 8, 5]} intensity={1.0} />
-      <mesh position={[0, 1, 0]}>
-        <boxGeometry args={[2, 2, 2]} />
-        <meshStandardMaterial color="#4cc9f0" />
+      {/* Lights */}
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[8, 12, 6]} intensity={1.1} />
+
+      {/* Ground */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+        <planeGeometry args={[60, 60]} />
+        <meshStandardMaterial color="#1f2937" />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[40, 40]} />
-        <meshStandardMaterial color="#1b263b" />
-      </mesh>
-      <OrbitControls makeDefault />
+
+      {/* Fallback demo campus */}
+      <group>
+        <mesh name="Engineering Building" position={[-6, 2, -4]}>
+          <boxGeometry args={[6, 4, 5]} />
+          <meshStandardMaterial color="#4c6fff" />
+        </mesh>
+
+        <mesh name="Library" position={[6, 1.5, -3]}>
+          <boxGeometry args={[5, 3, 4]} />
+          <meshStandardMaterial color="#f4b41a" />
+        </mesh>
+
+        <mesh name="Student Centre" position={[-2, 1.2, 5]}>
+          <boxGeometry args={[4.5, 2.4, 4]} />
+          <meshStandardMaterial color="#43aa8b" />
+        </mesh>
+
+        <mesh name="Gym" position={[7, 2.4, 6]}>
+          <boxGeometry args={[4, 4.8, 3.5]} />
+          <meshStandardMaterial color="#f25f5c" />
+        </mesh>
+
+        <mesh name="Admin" position={[-8, 1.6, 6]}>
+          <boxGeometry args={[3.5, 3.2, 3]} />
+          <meshStandardMaterial color="#9b5de5" />
+        </mesh>
+      </group>
+
+      {/* Controls (ONE instance only) */}
+      <OrbitControls
+        enableDamping
+        dampingFactor={0.1}
+        minDistance={5}
+        maxDistance={80}
+        maxPolarAngle={Math.PI / 2.2}
+        target={[0, 0, 0]}
+      />
     </>
   );
 }
 
 export default function App() {
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
-      <div
-        style={{
-          position: "absolute",
-          top: 16,
-          left: 16,
-          zIndex: 10,
-          padding: "8px 12px",
-          borderRadius: 8,
-          background: "rgba(11, 15, 26, 0.7)",
-          border: "1px solid rgba(255,255,255,0.2)",
-          color: "white",
-          fontFamily: '"Segoe UI", system-ui, sans-serif',
-          fontSize: 14,
-          letterSpacing: 0.3,
-        }}
-      >
-        Campus Viewer Prototype (R3F)
+    <div className="app-root">
+      <div className="overlay-root">
+        <div className="overlay-panel">
+          <div className="overlay-title">Campus Viewer</div>
+
+          <div className="overlay-section">
+            <div className="overlay-label">Selected</div>
+            <div className="overlay-value">None</div>
+          </div>
+
+          <div className="overlay-actions">
+            <button className="overlay-button" disabled>
+              Focus
+            </button>
+            <button className="overlay-button secondary" disabled>
+              Clear
+            </button>
+          </div>
+        </div>
       </div>
 
-      <Canvas camera={{ position: [8, 6, 8], fov: 50 }}>
+      <Canvas
+        camera={{ position: [15, 12, 15], fov: 50 }}
+        onCreated={({ camera }) => {
+          camera.lookAt(0, 0, 0);
+        }}
+      >
         <Scene />
       </Canvas>
     </div>
