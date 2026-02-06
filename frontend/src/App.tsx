@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+
+import LoginPage from "./LoginPage";
+import { clearSession, getSession, setSession, type AuthSession } from "./auth";
 
 type BuildingDef = {
   name: string;
@@ -101,12 +104,39 @@ function Scene({ selectedName, onSelect }: SceneProps) {
 
 export default function App() {
   const [selectedName, setSelectedName] = useState<string | null>(null);
+  const [session, setSessionState] = useState<AuthSession | null>(null);
+
+  // Load session from localStorage on first mount
+  useEffect(() => {
+    setSessionState(getSession());
+  }, []);
+
+  // Login gate
+  if (!session) {
+    return (
+      <LoginPage
+        onLogin={(username) => {
+          const next: AuthSession = {
+            username,
+            loginAt: new Date().toISOString(),
+          };
+          setSession(next);
+          setSessionState(next);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="app-root">
       <div className="overlay-root">
         <div className="overlay-panel">
           <div className="overlay-title">Campus Viewer</div>
+
+          <div className="overlay-section">
+            <div className="overlay-label">User</div>
+            <div className="overlay-value">{session.username}</div>
+          </div>
 
           <div className="overlay-section">
             <div className="overlay-label">Selected</div>
@@ -125,6 +155,17 @@ export default function App() {
             >
               Clear
             </button>
+
+            <button
+              className="overlay-button secondary"
+              onClick={() => {
+                clearSession();
+                setSessionState(null);
+                setSelectedName(null);
+              }}
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
@@ -135,10 +176,7 @@ export default function App() {
           camera.lookAt(0, 0, 0);
         }}
       >
-        <Scene
-          selectedName={selectedName}
-          onSelect={(name) => setSelectedName(name)}
-        />
+        <Scene selectedName={selectedName} onSelect={(name) => setSelectedName(name)} />
       </Canvas>
     </div>
   );
